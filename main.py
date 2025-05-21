@@ -1,5 +1,13 @@
+import sys
+from stats import num_of_word
+
 def main(): 
-    book_path = "books/frankenstein.txt"
+    print("Usage: python3 main.py <path_to_book>")
+    if len(sys.argv) != 2:
+        print("Error: Please provide the path to the book file.")
+        sys.exit(1)
+
+    book_path = sys.argv[1]
     text = get_book_text(book_path)
     num_of_words = num_of_word(text)
     dict_of_single_word_count = get_word_count(text)
@@ -23,9 +31,6 @@ def get_book_text(path):
     with open(path) as f:
         file_contents = f.read()
         return file_contents
-    
-def num_of_word(text):
-    return len(text.split())
 
 # def sorted_dict(dict):
 #     # Using dictionary comprehension to create a new dictionary sorted by values
@@ -52,7 +57,8 @@ def generate_report(num_of_words, arr_with_dict):
     
     for item in arr_with_dict:
         if item["char"].isalpha():
-            print(f"The '{item['char']}' character was found {item['num']} times")
+            print(f"{item['char']}: {item['num']}")
+            # print(f"The '{item['char']}' character was found {item['num']} times")
     
     print("--- End report ---")
     
